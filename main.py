@@ -1,32 +1,23 @@
 import pygame
 import random
 
-# creating the data structure for pieces
-# setting up global vars
-# functions
-# - create_grid
-# - draw_grid
-# - draw_window
-# - rotating shape in main
-# - setting up the main
-
 """
 10 x 20 square grid
-shapes: S, Z, I, O, J, L, T
+SHAPES: S, Z, I, O, J, L, T
 represented in order by 0 - 6
 """
 
 pygame.font.init()
 
-# GLOBALS VARS
-s_width = 800
-s_height = 700
-play_width = 300  # meaning 300 // 10 = 30 width per block
-play_height = 600  # meaning 600 // 20 = 20 height per block
-block_size = 30
+# global variables
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 700
+PLAY_WIDTH = 300  # meaning 300 // 10 = 30 width per block
+PLAY_HEIGHT = 600  # meaning 600 // 20 = 20 height per block
+BLOCK_SIZE = 30
 
-top_left_x = (s_width - play_width) // 2
-top_left_y = s_height - play_height
+TOP_LEFT_X = (SCREEN_WIDTH - PLAY_WIDTH) // 2
+TOP_LEFT_Y = SCREEN_HEIGHT - PLAY_HEIGHT
 
 
 # SHAPE FORMATS
@@ -132,8 +123,8 @@ T = [['.....',
       '..0..',
       '.....']]
 
-shapes = [S, Z, I, O, J, L, T]
-shape_colors = [(0, 255, 0), (255, 0, 0), (0, 255, 255), (255, 255, 0), (255, 165, 0), (0, 0, 255), (128, 0, 128)]
+SHAPES = [S, Z, I, O, J, L, T]
+SHAPE_COLORs = [(0, 255, 0), (255, 0, 0), (0, 255, 255), (255, 255, 0), (255, 165, 0), (0, 0, 255), (128, 0, 128)]
 # index 0 - 6 represent shape
 
 
@@ -142,7 +133,7 @@ class Piece(object):
         self.x = x
         self.y = y 
         self.shape = shape 
-        self.color = shape_colors[shapes.index(shape)]
+        self.color = SHAPE_COLORs[SHAPES.index(shape)]
         self.rotation = 0
 
 
@@ -193,23 +184,23 @@ def check_lost(positions):
     return False 
 
 def get_shape():
-    return Piece(5, 0, random.choice(shapes))
+    return Piece(5, 0, random.choice(SHAPES))
 
 def draw_text_middle(win, text, size, color):  
     font = pygame.font.SysFont("impact", size)
     label = font.render(text, 1, color)
 
-    win.blit(label, (top_left_x + play_width/2 - (label.get_width()/2), top_left_y + play_height/2 - (label.get_height()/2)))
+    win.blit(label, (TOP_LEFT_X + PLAY_WIDTH/2 - (label.get_width()/2), TOP_LEFT_Y + PLAY_HEIGHT/2 - (label.get_height()/2)))
     
    
 def draw_grid(win, grid):
-    start_x = top_left_x
-    start_y = top_left_y
+    start_x = TOP_LEFT_X
+    start_y = TOP_LEFT_Y
 
     for i in range(len(grid)):
-        pygame.draw.line(win, (128, 128, 128), (start_x, start_y + i*block_size), (start_x + play_width, start_y + i*block_size))
+        pygame.draw.line(win, (128, 128, 128), (start_x, start_y + i*BLOCK_SIZE), (start_x + PLAY_WIDTH, start_y + i*BLOCK_SIZE))
         for j in range(len(grid[i])):
-            pygame.draw.line(win, (128, 128, 128), (start_x + j*block_size, start_y), (start_x + j*block_size, start_y + play_height))
+            pygame.draw.line(win, (128, 128, 128), (start_x + j*BLOCK_SIZE, start_y), (start_x + j*BLOCK_SIZE, start_y + PLAY_HEIGHT))
     
 def clear_rows(grid, locked):
     inc = 0
@@ -239,15 +230,15 @@ def draw_next_shape(piece, win):
     font = pygame.font.SysFont('impact', 30)
     label = font.render('Next shape', 1, (255, 255, 255))
 
-    start_x = top_left_x + play_width + 50
-    start_y = top_left_y + play_height/2 - 100
+    start_x = TOP_LEFT_X + PLAY_WIDTH + 50
+    start_y = TOP_LEFT_Y + PLAY_HEIGHT/2 - 100
     format = piece.shape[piece.rotation % len(piece.shape)]
     
     for i, line in enumerate(format):
         row = list(line)
         for j, column in enumerate(row):
             if column == '0':
-                pygame.draw.rect(win, piece.color, (start_x + j*block_size, start_y + i*block_size, block_size, block_size), 0)
+                pygame.draw.rect(win, piece.color, (start_x + j*BLOCK_SIZE, start_y + i*BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE), 0)
 
     win.blit(label, (start_x + 10, start_y - 30))
 
@@ -274,28 +265,28 @@ def draw_window(win, grid, score=0, high_score=0):
     font = pygame.font.SysFont('impact', 60)
     label = font.render('Tetris', 1, (255, 255, 255))
 
-    win.blit(label, (top_left_x + play_width/2 - label.get_width()/2, 30))
+    win.blit(label, (TOP_LEFT_X + PLAY_WIDTH/2 - label.get_width()/2, 30))
 
     font = pygame.font.SysFont('impact', 30)
     label = font.render('Score: ' + str(score), 1, (255, 255, 255))
 
-    start_x = top_left_x + play_width + 50
-    start_y = top_left_y + play_height/2 - 100
+    start_x = TOP_LEFT_X + PLAY_WIDTH + 50
+    start_y = TOP_LEFT_Y + PLAY_HEIGHT/2 - 100
 
     win.blit(label, (start_x + 20, start_y + 200))
 
     label = font.render('High Score: ' + str(high_score), 1, (255, 255, 255))
 
-    start_x = top_left_x - 220
-    start_y = top_left_y + play_height/2 - 100
+    start_x = TOP_LEFT_X - 220
+    start_y = TOP_LEFT_Y + PLAY_HEIGHT/2 - 100
 
     win.blit(label, (start_x + 10, start_y - 200))
 
     for i in range(len(grid)):
         for j in range(len(grid[i])):
-            pygame.draw.rect(win, grid[i][j], (top_left_x + j*block_size, top_left_y + i*block_size, block_size, block_size), 0)
+            pygame.draw.rect(win, grid[i][j], (TOP_LEFT_X + j*BLOCK_SIZE, TOP_LEFT_Y + i*BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE), 0)
 
-    pygame.draw.rect(win, (255, 0, 0), (top_left_x, top_left_y, play_width, play_height), 4)
+    pygame.draw.rect(win, (255, 0, 0), (TOP_LEFT_X, TOP_LEFT_Y, PLAY_WIDTH, PLAY_HEIGHT), 4)
 
     draw_grid(win, grid)
 
@@ -401,6 +392,6 @@ def main_menu(win):
     pygame.display.quit()
 
 
-win = pygame.display.set_mode((s_width, s_height))
+win = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Tetris')
 main_menu(win)  # start game
