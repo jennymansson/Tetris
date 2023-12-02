@@ -46,8 +46,8 @@ python main.py
 
 ## Scoring
 - Score points by completing horizontal lines. 
-- Clearing multiple lines at once earns bonus points. 
-- The game speed increases over time, providing an additional challenge.
+- Clearing multiple lines at once earns bonus points.
+- The game speed increases over time, providing an additional challenge.
 
 
 
