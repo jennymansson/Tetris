@@ -2,7 +2,23 @@ from shapes import *
 from display import * 
 import random 
 
+"""
+This module contains functions related to the game logic of Tetris. It includes functions for
+converting the shape format, checking the validity of a space for a shape in the grid,
+checking if the player has lost, obtaining a new random shape, clearing completed rows, and
+updating and retrieving the player's score.
+"""
+
 def convert_shape_format(piece):
+    """
+    Converts the shape format based on the rotation of the piece.
+
+    Parameters:
+    - piece: An instance of the Piece class representing the current game piece.
+
+    Returns:
+    - positions: A list of (x, y) positions occupied by the piece.
+    """
     positions = []
     format = piece.shape[piece.rotation % len(piece.shape)]
 
@@ -18,21 +34,36 @@ def convert_shape_format(piece):
     return positions
 
 def valid_space(shape, grid):
-    # Accepted positions
+    """
+    Checks if the space for the shape in the grid is valid.
+
+    Parameters:
+    - shape: An instance of the Piece class representing the current game piece.
+    - grid: A 2D list representing the game grid.
+
+    Returns:
+    - True if the space is valid, False otherwise.
+    """
     accepted_pos = [(j, i) for j in range(10) for i in range(20) if grid[i][j] == (0, 0, 0)]
 
-    # Formatted shape positions
     formatted_shape = convert_shape_format(shape)
 
-    # Check if any position of the shape is outside the accepted positions
     for pos in formatted_shape: 
         if pos not in accepted_pos:
-            # Check if the shape position is inside the grid boundaries
             if pos[1] > -1: 
                 return False 
     return True
 
 def check_lost(positions):
+    """
+    Checks if the player has lost.
+
+    Parameters:
+    - positions: A list of (x, y) positions occupied by the locked game pieces.
+
+    Returns:
+    - True if the player has lost, False otherwise.
+    """
     for pos in positions:
         x, y = pos
         if y < 1: 
@@ -41,9 +72,25 @@ def check_lost(positions):
     return False 
 
 def get_shape():
+    """
+    Obtains a new random shape for the game piece.
+
+    Returns:
+    - An instance of the Piece class representing the new game piece.
+    """
     return Piece(5, 0, random.choice(SHAPES))
 
 def clear_rows(grid, locked):
+    """
+    Clears completed rows in the grid and updates locked positions.
+
+    Parameters:
+    - grid: A 2D list representing the game grid.
+    - locked: A dictionary representing the locked positions of game pieces.
+
+    Returns:
+    - The number of rows cleared.
+    """
     inc = 0
     for i in range(len(grid) -1, -1, -1):
         row = grid[i]
@@ -67,6 +114,12 @@ def clear_rows(grid, locked):
     return inc 
 
 def update_score(newScore): 
+    """
+    Updates the high score in scores.txt file.
+
+    Parameters:
+    - new_score: The new score achieved by the player.
+    """
     score = max_score()
     
     with open('scores.txt', 'w') as file:
@@ -76,6 +129,12 @@ def update_score(newScore):
             file.write(str(score))
 
 def max_score():
+    """
+    Retrieves the highest score from the scores.txt file.
+
+    Returns:
+    - The highest score as a string.
+    """
     with open('scores.txt', 'r') as file:
         lines = file.readlines() 
         score = lines[0].strip()

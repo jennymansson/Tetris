@@ -1,17 +1,33 @@
 from shapes import *
 import pygame 
 
-# global variables
+"""
+This module contains functions and global variables related to the display and user interface
+aspects of the Tetris game. It includes functions for creating the game grid, drawing the game
+window, handling text display, and managing the visualization of shapes, as well as global variables for the game. 
+"""
+
+# Global variables for the game window   
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 700
-PLAY_WIDTH = 300  # meaning 300 // 10 = 30 width per block
-PLAY_HEIGHT = 600  # meaning 600 // 20 = 20 height per block
+PLAY_WIDTH = 300    # Each block is 30 units wide, meaning 300 // 10 = 30 width per block
+PLAY_HEIGHT = 600   # Each block is 30 units high, meaning 600 // 20 = 20 height per block
 BLOCK_SIZE = 30
 
+# Calculate the top-left corner coordinates of the play area
 TOP_LEFT_X = (SCREEN_WIDTH - PLAY_WIDTH) // 2
 TOP_LEFT_Y = SCREEN_HEIGHT - PLAY_HEIGHT
 
 def create_grid(locked_positions = {}):
+    """
+    Creates and returns an empty grid with locked positions filled with colors.
+    
+    Parameters:
+    - locked_positions: Dictionary containing positions and corresponding colors of locked pieces.
+    
+    Returns:
+    - grid: 2D list representing the game grid with colors.
+    """
     grid = [[(0, 0, 0) for _ in range(10)] for _ in range(20)]
 
     for i in range(len(grid)):
@@ -22,6 +38,13 @@ def create_grid(locked_positions = {}):
     return grid
 
 def draw_grid(win, grid):
+    """
+    Draws the grid lines on the game window.
+
+    Parameters:
+    - win: Pygame window object.
+    - grid: 2D list representing the game grid with colors.
+    """
     start_x = TOP_LEFT_X
     start_y = TOP_LEFT_Y
 
@@ -31,6 +54,15 @@ def draw_grid(win, grid):
             pygame.draw.line(win, (128, 128, 128), (start_x + j*BLOCK_SIZE, start_y), (start_x + j*BLOCK_SIZE, start_y + PLAY_HEIGHT))
 
 def draw_text_middle(win, text, size, color):  
+    """
+    Draws text in the middle of the game window.
+
+    Parameters:
+    - win: Pygame window object.
+    - text: Text to be displayed.
+    - size: Font size.
+    - color: Text color.
+    """
     font = pygame.font.SysFont("impact", size)
     label = font.render(text, 1, color)
 
@@ -38,6 +70,15 @@ def draw_text_middle(win, text, size, color):
 
 
 def draw_window(win, grid, score=0, high_score=0):
+    """
+    Draws the entire game window, including the grid, score, and high score.
+
+    Parameters:
+    - win: Pygame window object.
+    - grid: 2D list representing the game grid with colors.
+    - score: Current score.
+    - high_score: Highest score achieved.
+    """
     win.fill((0, 0, 0))
 
     pygame.font.init()
@@ -70,6 +111,13 @@ def draw_window(win, grid, score=0, high_score=0):
     draw_grid(win, grid)
 
 def draw_next_shape(piece, win):
+    """
+    Draws the next shape to appear on the game window.
+
+    Parameters:
+    - piece: Current game piece.
+    - win: Pygame window object.
+    """
     font = pygame.font.SysFont('impact', 30)
     label = font.render('Next shape', 1, (255, 255, 255))
 
