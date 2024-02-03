@@ -106,7 +106,7 @@ def draw_window(win, grid, score=0, high_score=0):
         for j in range(len(grid[i])):
             pygame.draw.rect(win, grid[i][j], (TOP_LEFT_X + j*BLOCK_SIZE, TOP_LEFT_Y + i*BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE), 0)
 
-    pygame.draw.rect(win, (255, 0, 0), (TOP_LEFT_X, TOP_LEFT_Y, PLAY_WIDTH, PLAY_HEIGHT), 4)
+    pygame.draw.rect(win, (128, 128, 128), (TOP_LEFT_X, TOP_LEFT_Y, PLAY_WIDTH, PLAY_HEIGHT), 4)
 
     draw_grid(win, grid)
 

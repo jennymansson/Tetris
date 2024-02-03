@@ -130,4 +130,4 @@ def main_menu(win):
 
 win = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Tetris')
-main_menu(win)  # start game
+main_menu(win)  
