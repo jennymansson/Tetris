@@ -25,7 +25,7 @@ To play Tetris on your local machine, follow these steps:
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/tetris-game.git
+git clone https://github.com/jennymansson/tetris-game.git
 ```
 
 2. Install the required dependencies:
