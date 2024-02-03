@@ -39,10 +39,10 @@ python main.py
 ```
 
 ## Controls
-- Left Arrow Key: Move the current piece to the left. 
-- Right Arrow Key: Move the current piece to the right. 
-- Down Arrow Key: Accelerate the falling speed of the current piece. 
-- Up Arrow Key: Rotate the current piece.
+- **Left Arrow Key:** Move the current piece to the left. 
+- **Right Arrow Key:** Move the current piece to the right. 
+- **Down Arrow Key:** Accelerate the falling speed of the current piece. 
+- **Up Arrow Key:** Rotate the current piece.
 
 ## Scoring
 - Score points by completing horizontal lines. 
