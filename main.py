@@ -117,7 +117,15 @@ def main_menu(win):
     run = True 
     while run: 
         win.fill((0, 0, 0))
-        draw_text_middle(win, 'Press Any Key To Play', 60, (255, 255, 255))
+        font = pygame.font.SysFont("impact", 120)
+        label = font.render('TETRIS', 1, (255, 255, 255))
+        win.blit(label, (TOP_LEFT_X + PLAY_WIDTH/2 - (label.get_width()/2), TOP_LEFT_Y + 130))
+
+        draw_text_middle(win, 'Press Any Key To Play', 40, (255, 255, 255))
+
+        font = pygame.font.SysFont("impact", 20)
+        label = font.render('Jenny Månsson', 1, (255, 255, 255))
+        win.blit(label, (TOP_LEFT_X + PLAY_WIDTH/2 - (label.get_width()/2), TOP_LEFT_Y + PLAY_HEIGHT - 60))
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
